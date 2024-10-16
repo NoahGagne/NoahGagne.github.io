@@ -70,7 +70,7 @@ function ajouterCaractere(nouveauTexte) {
 function operation(signe) {
     if (!totalAffiche) {
         nombrePrecedent = parseFloat(affichageTexte.innerText);
-        switch (signe) {
+        if (!total.isZero()) switch (signe) {
             case '+':
                 additionner();
                 break;
@@ -79,6 +79,8 @@ function operation(signe) {
                 break;
             default:
                 throw new Error('Signe non-valide');
+        } else {
+            total = nombrePrecedent;
         }
     }
     operationPrecedente = signe;

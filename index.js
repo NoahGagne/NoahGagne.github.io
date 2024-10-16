@@ -39,7 +39,7 @@ boutonPoint.addEventListener("click", function() {
 });
 
 boutonEgal.addEventListener("click", function() {
-    if (!totalAffiche) nombrePrecedent = new BigNumber(parseFloat(affichageTexte.innerText));
+    if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte.innerText);
     switch (operationPrecedente) {
         case '+':
             additionner();
@@ -54,7 +54,7 @@ boutonEgal.addEventListener("click", function() {
 
 boutonPlus.addEventListener("click", function() {
     if (!totalAffiche) {
-        nombrePrecedent = new BigNumber(parseFloat(affichageTexte.innerText));
+        nombrePrecedent = parseFloat(affichageTexte.innerText);
         additionner();
     }
     operationPrecedente = '+';
@@ -71,7 +71,7 @@ function ajouterCaractere(nouveauTexte) {
 
 
 function additionner() {
-    total.plus(nombrePrecedent);
+    total = total.plus(nombrePrecedent);
     console.log(total);
     resetOnNextImput = true;
 }

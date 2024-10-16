@@ -14,6 +14,7 @@ const bouton0 = document.getElementById('zero');
 const boutonPoint = document.getElementById('point');
 const boutonEgal = document.getElementById('egal');
 const boutonPlus = document.getElementById('addition');
+const boutonMoins = document.getElementById("soustraction");
 
 let nombrePrecedent = new BigNumber(0);
 let total = new BigNumber(0);
@@ -44,23 +45,20 @@ boutonEgal.addEventListener("click", function() {
         case '+':
             additionner();
             break;
+        case '-':
+            soustraire();
+            break;
         default:
             total = nombrePrecedent;
+            break;
     }
     affichageTexte.innerText = total;
     resetOnNextImput = false;
     totalAffiche = true;
 });
 
-boutonPlus.addEventListener("click", function() {
-    if (!totalAffiche) {
-        nombrePrecedent = parseFloat(affichageTexte.innerText);
-        additionner();
-    }
-    operationPrecedente = '+';
-    resetOnNextImput = true;
-})
-
+boutonPlus.addEventListener("click", () => operation('+'));
+boutonMoins.addEventListener("click", () => operation('-'));
 
 function ajouterCaractere(nouveauTexte) {
 
@@ -69,10 +67,31 @@ function ajouterCaractere(nouveauTexte) {
     affichageTexte.innerText += nouveauTexte;
 }
 
+function operation(signe) {
+    if (!totalAffiche) {
+        nombrePrecedent = parseFloat(affichageTexte.innerText);
+        switch (signe) {
+            case '+':
+                additionner();
+                break;
+            case '-':
+                soustraire();
+                break;
+            default:
+                throw new Error('Signe non-valide');
+        }
+    }
+    operationPrecedente = signe;
+    resetOnNextImput = true;
+}
 
 function additionner() {
     total = total.plus(nombrePrecedent);
-    console.log(total);
+    resetOnNextImput = true;
+}
+
+function soustraire() {
+    total = total.minus(nombrePrecedent)
     resetOnNextImput = true;
 }
 

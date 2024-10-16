@@ -80,7 +80,7 @@ function operation(signe) {
             default:
                 throw new Error('Signe non-valide');
         } else {
-            total = nombrePrecedent;
+            additionner();
         }
     }
     operationPrecedente = signe;

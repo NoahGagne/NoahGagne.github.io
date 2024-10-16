@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js-9.1.1/bignumber.js';
+import BigNumber from './bignumber.js-9.1.1/bignumber.js';
 
 const affichageTexte = document.getElementById('affichageTexte');
 const bouton1 = document.getElementById('un');

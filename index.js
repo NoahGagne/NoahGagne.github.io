@@ -68,7 +68,7 @@ function ajouterCaractere(nouveauTexte) {
 }
 
 function operation(signe) {
-    if (!totalAffiche) {
+    if (!totalAffiche && !resetOnNextImput) {
         nombrePrecedent = parseFloat(affichageTexte.innerText);
         if (!total.isZero()) switch (signe) {
             case '+':

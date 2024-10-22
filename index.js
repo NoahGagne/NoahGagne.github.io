@@ -1,6 +1,6 @@
 import {BigNumber} from '/bignumber.js-9.1.1/bignumber.mjs';
 
-const affichageTexte = document.getElementById('affichageTexte');
+let affichageTexte = document.getElementById('affichageTexte').innerText;
 const bouton1 = document.getElementById('un');
 const bouton2 = document.getElementById('deux');
 const bouton3 = document.getElementById('trois');
@@ -16,10 +16,10 @@ const boutonEgal = document.getElementById('egal');
 const boutonPlus = document.getElementById('addition');
 const boutonMoins = document.getElementById("soustraction");
 
-let nombrePrecedent = new BigNumber(0);
+let nombrePrecedent;
 let total = new BigNumber(0);
 let operationPrecedente = '';
-let resetOnNextImput = false;
+let resetAffichage = false;
 let totalAffiche = false;
 
 bouton1.addEventListener("click", () => ajouterCaractere(('1')));
@@ -33,14 +33,15 @@ bouton8.addEventListener("click", () => ajouterCaractere(('8')));
 bouton9.addEventListener("click", () => ajouterCaractere(('9')));
 bouton0.addEventListener("click", () => ajouterCaractere(('0')));
 
-boutonPoint.addEventListener("click", function() {
-    if (!affichageTexte.innerText.includes(".") && affichageTexte.innerText) {
+boutonPoint.addEventListener("click", function () {
+    if (affichageTexte && !affichageTexte.includes(".")) {
         ajouterCaractere(('.'));
     }
 });
 
-boutonEgal.addEventListener("click", function() {
-    if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte.innerText);
+boutonEgal.addEventListener("click", function () {
+    if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte);
+
     switch (operationPrecedente) {
         case '+':
             additionner();
@@ -52,8 +53,9 @@ boutonEgal.addEventListener("click", function() {
             total = nombrePrecedent;
             break;
     }
-    affichageTexte.innerText = total;
-    resetOnNextImput = false;
+
+    affichageTexte = total;
+    resetAffichage = false;
     totalAffiche = true;
 });
 
@@ -62,14 +64,14 @@ boutonMoins.addEventListener("click", () => operation('-'));
 
 function ajouterCaractere(nouveauTexte) {
 
-    if (resetOnNextImput) reset(true);
-    else if (totalAffiche) reset (false);
-    affichageTexte.innerText += nouveauTexte;
+    if (resetAffichage) reset(true);
+    else if (totalAffiche) reset(false);
+    affichageTexte += nouveauTexte;
 }
 
 function operation(signe) {
-    if (!totalAffiche && !resetOnNextImput) {
-        nombrePrecedent = parseFloat(affichageTexte.innerText);
+    if (!totalAffiche && !resetAffichage) {
+        nombrePrecedent = parseFloat(affichageTexte);
         if (!total.isZero()) switch (signe) {
             case '+':
                 additionner();
@@ -84,17 +86,17 @@ function operation(signe) {
         }
     }
     operationPrecedente = signe;
-    resetOnNextImput = true;
+    resetAffichage = true;
 }
 
 function additionner() {
     total = total.plus(nombrePrecedent);
-    resetOnNextImput = true;
+    resetAffichage = true;
 }
 
 function soustraire() {
     total = total.minus(nombrePrecedent)
-    resetOnNextImput = true;
+    resetAffichage = true;
 }
 
 function reset(garderTotal) {
@@ -104,7 +106,7 @@ function reset(garderTotal) {
         totalAffiche = false;
         operationPrecedente = '';
     }
-    affichageTexte.innerText = null;
-    resetOnNextImput = false;
+    affichageTexte = null;
+    resetAffichage = false;
     totalAffiche = false;
 }

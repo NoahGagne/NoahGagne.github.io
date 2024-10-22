@@ -15,6 +15,8 @@ const boutonPoint = document.getElementById('point');
 const boutonEgal = document.getElementById('egal');
 const boutonPlus = document.getElementById('addition');
 const boutonMoins = document.getElementById("soustraction");
+const boutonMultiplie = document.getElementById('multiplication');
+const boutonDivise = document.getElementById('division');
 
 let nombrePrecedent;
 let total = new BigNumber(0);
@@ -41,19 +43,7 @@ boutonPoint.addEventListener("click", function () {
 
 boutonEgal.addEventListener("click", function () {
     if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte);
-
-    switch (operationPrecedente) {
-        case '+':
-            additionner();
-            break;
-        case '-':
-            soustraire();
-            break;
-        default:
-            total = nombrePrecedent;
-            break;
-    }
-
+    operationPrecedente ? changerTotal() : total.plus(nombrePrecedent);
     affichageTexte = total;
     resetAffichage = false;
     totalAffiche = true;
@@ -61,6 +51,8 @@ boutonEgal.addEventListener("click", function () {
 
 boutonPlus.addEventListener("click", () => operation('+'));
 boutonMoins.addEventListener("click", () => operation('-'));
+boutonMultiplie.addEventListener("click", () => operation('*'));
+boutonDivise.addEventListener("click", () => operation('/'));
 
 function ajouterCaractere(nouveauTexte) {
 
@@ -72,31 +64,29 @@ function ajouterCaractere(nouveauTexte) {
 function operation(signe) {
     if (!totalAffiche && !resetAffichage) {
         nombrePrecedent = parseFloat(affichageTexte);
-        if (!total.isZero()) switch (signe) {
-            case '+':
-                additionner();
-                break;
-            case '-':
-                soustraire();
-                break;
-            default:
-                throw new Error('Signe non-valide');
-        } else {
-            additionner();
-        }
+        !total.isZero() ? changerTotal() : total.plus(nombrePrecedent);
     }
     operationPrecedente = signe;
     resetAffichage = true;
 }
 
-function additionner() {
-    total = total.plus(nombrePrecedent);
-    resetAffichage = true;
-}
-
-function soustraire() {
-    total = total.minus(nombrePrecedent)
-    resetAffichage = true;
+function changerTotal(signe) {
+    switch (signe) {
+        case '+':
+            total.plus(nombrePrecedent);
+            break;
+        case '-':
+            total.minus(nombrePrecedent);
+            break;
+        case '*':
+            total.multipliedBy(nombrePrecedent);
+            break;
+        case '/':
+            total.dividedBy(nombrePrecedent);
+            break;
+        default:
+            throw new Error('Signe non-valide');
+    }
 }
 
 function reset(garderTotal) {

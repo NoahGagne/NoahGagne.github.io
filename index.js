@@ -43,7 +43,7 @@ boutonPoint.addEventListener("click", function () {
 
 boutonEgal.addEventListener("click", function () {
     if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte.innerText);
-    operationPrecedente ? changerTotal(operationPrecedente) : total.plus(nombrePrecedent);
+    operationPrecedente ? changerTotal(operationPrecedente) : total = total.plus(nombrePrecedent);
     affichageTexte.innerText = total;
     doitResetAffichage = false;
     totalAffiche = true;
@@ -64,7 +64,7 @@ function ajouterCaractere(nouveauTexte) {
 function operation(signe) {
     if (!totalAffiche && !doitResetAffichage) {
         nombrePrecedent = parseFloat(affichageTexte.innerText);
-        !total.isZero() ? changerTotal() : total.plus(nombrePrecedent);
+        !total.isZero() ? changerTotal() : total = total.plus(nombrePrecedent);
     }
     operationPrecedente = signe;
     doitResetAffichage = true;

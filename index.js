@@ -21,7 +21,7 @@ const boutonDivise = document.getElementById('division');
 let nombrePrecedent;
 let total = new BigNumber(0);
 let operationPrecedente = '';
-let resetAffichage = false;
+let doitResetAffichage = false;
 let totalAffiche = false;
 
 bouton1.addEventListener("click", () => ajouterCaractere(('1')));
@@ -43,9 +43,9 @@ boutonPoint.addEventListener("click", function () {
 
 boutonEgal.addEventListener("click", function () {
     if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte.innerText);
-    operationPrecedente ? changerTotal() : total.plus(nombrePrecedent);
+    operationPrecedente ? changerTotal(operationPrecedente) : total.plus(nombrePrecedent);
     affichageTexte.innerText = total;
-    resetAffichage = false;
+    doitResetAffichage = false;
     totalAffiche = true;
 });
 
@@ -56,18 +56,18 @@ boutonDivise.addEventListener("click", () => operation('/'));
 
 function ajouterCaractere(nouveauTexte) {
 
-    if (resetAffichage) reset(true);
+    if (doitResetAffichage) reset(true);
     else if (totalAffiche) reset(false);
     affichageTexte.innerText += nouveauTexte;
 }
 
 function operation(signe) {
-    if (!totalAffiche && !resetAffichage) {
+    if (!totalAffiche && !doitResetAffichage) {
         nombrePrecedent = parseFloat(affichageTexte.innerText);
         !total.isZero() ? changerTotal() : total.plus(nombrePrecedent);
     }
     operationPrecedente = signe;
-    resetAffichage = true;
+    doitResetAffichage = true;
 }
 
 function changerTotal(signe) {
@@ -97,6 +97,6 @@ function reset(garderTotal) {
         operationPrecedente = '';
     }
     affichageTexte.innerText = null;
-    resetAffichage = false;
+    doitResetAffichage = false;
     totalAffiche = false;
 }

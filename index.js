@@ -73,30 +73,32 @@ function operation(signe) {
 function changerTotal(signe) {
     switch (signe) {
         case '+':
-            total.plus(nombrePrecedent);
+            total = total.plus(nombrePrecedent);
             break;
         case '-':
-            total.minus(nombrePrecedent);
+            total = total.minus(nombrePrecedent);
             break;
         case '*':
-            total.multipliedBy(nombrePrecedent);
+            total = total.multipliedBy(nombrePrecedent);
             break;
         case '/':
-            total.dividedBy(nombrePrecedent);
+            total = total.dividedBy(nombrePrecedent);
             break;
         default:
             throw new Error('Signe non-valide');
     }
+
+
 }
 
 function reset(garderTotal) {
     if (garderTotal === false) {
-        total = BigNumber(0);
-        nombrePrecedent = BigNumber(0);
+        total = new BigNumber(0);
+        nombrePrecedent = 0;
         totalAffiche = false;
         operationPrecedente = '';
     }
-    affichageTexte.innerText = null;
+    affichageTexte.innerText = '';
     doitResetAffichage = false;
     totalAffiche = false;
 }

@@ -36,15 +36,15 @@ bouton9.addEventListener("click", () => ajouterCaractere(('9')));
 bouton0.addEventListener("click", () => ajouterCaractere(('0')));
 
 boutonPoint.addEventListener("click", function () {
-    if (affichageTexte && !affichageTexte.includes(".")) {
+    if (affichageTexte && !affichageTexte.innerText.includes(".")) {
         ajouterCaractere(('.'));
     }
 });
 
 boutonEgal.addEventListener("click", function () {
-    if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte);
+    if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte.innerText);
     operationPrecedente ? changerTotal() : total.plus(nombrePrecedent);
-    affichageTexte = total;
+    affichageTexte.innerText = total;
     resetAffichage = false;
     totalAffiche = true;
 });
@@ -58,12 +58,12 @@ function ajouterCaractere(nouveauTexte) {
 
     if (resetAffichage) reset(true);
     else if (totalAffiche) reset(false);
-    affichageTexte += nouveauTexte;
+    affichageTexte.innerText += nouveauTexte;
 }
 
 function operation(signe) {
     if (!totalAffiche && !resetAffichage) {
-        nombrePrecedent = parseFloat(affichageTexte);
+        nombrePrecedent = parseFloat(affichageTexte.innerText);
         !total.isZero() ? changerTotal() : total.plus(nombrePrecedent);
     }
     operationPrecedente = signe;
@@ -96,7 +96,7 @@ function reset(garderTotal) {
         totalAffiche = false;
         operationPrecedente = '';
     }
-    affichageTexte = null;
+    affichageTexte.innerText = null;
     resetAffichage = false;
     totalAffiche = false;
 }

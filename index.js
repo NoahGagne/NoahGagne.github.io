@@ -43,7 +43,7 @@ boutonPoint.addEventListener("click", function () {
 
 boutonEgal.addEventListener("click", function () {
     if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte.innerText);
-    operationPrecedente ? changerTotal(operationPrecedente) : total = total.plus(nombrePrecedent);
+    operationPrecedente ? changerTotal(operationPrecedente) : total = nombrePrecedent;
     affichageTexte.innerText = total;
     doitResetAffichage = false;
     totalAffiche = true;

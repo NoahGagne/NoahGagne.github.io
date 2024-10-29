@@ -1,4 +1,5 @@
 import {BigNumber} from '/bignumber.js-9.1.1/bignumber.mjs';
+BigNumber.config({ EXPONENTIAL_AT: [-19, 20] })
 
 let affichageTexte = document.getElementById('affichageTexte');
 const bouton1 = document.getElementById('un');
@@ -44,7 +45,7 @@ boutonPoint.addEventListener("click", function () {
 boutonEgal.addEventListener("click", function () {
     if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte.innerText);
     operationPrecedente ? changerTotal(operationPrecedente) : total = new BigNumber(nombrePrecedent);
-    affichageTexte.innerText = total.toFixed().substring(0, 20);
+    affichageTexte.innerText = total.toString()
     doitResetAffichage = false;
     totalAffiche = true;
 });

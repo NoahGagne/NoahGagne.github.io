@@ -42,9 +42,9 @@ boutonPoint.addEventListener("click", function () {
 });
 
 boutonEgal.addEventListener("click", function () {
-    if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte.innerText.substring(0, 20));
+    if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte.innerText);
     operationPrecedente ? changerTotal(operationPrecedente) : total = new BigNumber(nombrePrecedent);
-    affichageTexte.innerText = total;
+    affichageTexte.innerText = total.toFixed().substring(0, 20);
     doitResetAffichage = false;
     totalAffiche = true;
 });
@@ -66,7 +66,7 @@ function ajouterCaractere(nouveauTexte) {
 
 function operation(signe) {
     if (!totalAffiche && !doitResetAffichage) {
-        nombrePrecedent = parseFloat(affichageTexte.innerText.substring(0, 20));
+        nombrePrecedent = parseFloat(affichageTexte.innerText);
         !total.isZero() ? changerTotal() : total = total.plus(nombrePrecedent);
     }
     operationPrecedente = signe;

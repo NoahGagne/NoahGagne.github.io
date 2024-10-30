@@ -104,7 +104,7 @@ const formaterTotal = aFormater => {
 
     const exposant = totalString.substring(totalString.indexOf("e"), totalString.length);
 
-    return totalString.substring(0, totalString.length - exposant.length) + exposant;
+    return totalString.substring(0, 20 - exposant.length) + exposant;
 }
 
 const reset = garderTotal => {

@@ -99,7 +99,7 @@ const formaterTotal = aFormater => {
     const totalString = aFormater.toString();
 
     if (totalString.indexOf("e") === -1) {
-        return aFormater.substring(0, 20);
+        return totalString.substring(0, 20);
     }
 
     const exposant = totalString.substring(totalString.indexOf("e"), totalString.length);

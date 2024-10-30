@@ -96,7 +96,7 @@ const changerTotal = signe => {
 }
 
 const formaterTotal = aFormater => {
-    if (totalString.indexOf("e") === -1) {
+    if (aFormater.indexOf("e") === -1) {
         return aFormater.substring(0, 20);
     }
 

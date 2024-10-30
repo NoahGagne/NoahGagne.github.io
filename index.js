@@ -96,11 +96,12 @@ const changerTotal = signe => {
 }
 
 const formaterTotal = aFormater => {
-    if (aFormater.indexOf("e") === -1) {
+    const totalString = aFormater.toString();
+
+    if (totalString.indexOf("e") === -1) {
         return aFormater.substring(0, 20);
     }
 
-    const totalString = aFormater.toString();
     const exposant = totalString.substring(totalString.indexOf("e"), totalString.length);
 
     return totalString.substring(0, totalString.length - exposant.length) + exposant;

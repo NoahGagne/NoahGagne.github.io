@@ -1,5 +1,5 @@
 import {BigNumber} from '/bignumber.js-9.1.1/bignumber.mjs';
-BigNumber.config({ EXPONENTIAL_AT: [-19, 20] })
+BigNumber.config({ EXPONENTIAL_AT: [-19, 19] })
 
 let affichageTexte = document.getElementById('affichageTexte');
 const bouton1 = document.getElementById('un');
@@ -45,7 +45,7 @@ boutonPoint.addEventListener("click", function () {
 boutonEgal.addEventListener("click", function () {
     if (!totalAffiche) nombrePrecedent = parseFloat(affichageTexte.innerText);
     operationPrecedente ? changerTotal(operationPrecedente) : total = new BigNumber(nombrePrecedent);
-    affichageTexte.innerText = total.toString()
+    affichageTexte.innerText = formaterTotal(total);
     doitResetAffichage = false;
     totalAffiche = true;
 });
@@ -55,7 +55,7 @@ boutonMoins.addEventListener("click", () => operation('-'));
 boutonMultiplie.addEventListener("click", () => operation('*'));
 boutonDivise.addEventListener("click", () => operation('/'));
 
-function ajouterCaractere(nouveauTexte) {
+const  ajouterCaractere = nouveauTexte => {
 
     if (doitResetAffichage) reset(true);
     else if (totalAffiche) reset(false);
@@ -65,7 +65,7 @@ function ajouterCaractere(nouveauTexte) {
     }
 }
 
-function operation(signe) {
+const  operation = signe => {
     if (!totalAffiche && !doitResetAffichage) {
         nombrePrecedent = parseFloat(affichageTexte.innerText);
         !total.isZero() ? changerTotal() : total = total.plus(nombrePrecedent);
@@ -74,7 +74,7 @@ function operation(signe) {
     doitResetAffichage = true;
 }
 
-function changerTotal(signe) {
+const changerTotal = signe => {
     switch (signe) {
         case '+':
             total = total.plus(nombrePrecedent);
@@ -95,7 +95,18 @@ function changerTotal(signe) {
 
 }
 
-function reset(garderTotal) {
+const formaterTotal = aFormater => {
+    if (totalString.indexOf("e") === -1) {
+        return aFormater.substring(0, 20);
+    }
+
+    const totalString = aFormater.toString();
+    const exposant = totalString.substring(totalString.indexOf("e"), totalString.length);
+
+    return totalString.substring(0, totalString.length - exposant.length) + exposant;
+}
+
+const reset = garderTotal => {
     if (garderTotal === false) {
         total = new BigNumber(0);
         nombrePrecedent = 0;
